@@ -1,0 +1,13 @@
+# ./Taskfile.yaml
+# See: https://taskfile.dev/api/  
+
+version: "3"
+
+tasks:  
+  default:
+    cmds:  
+      - task: run  
+  run: 
+    desc: "run if config from flag"  
+    cmds: 
+      - go run ./cmd/sso/main.go --config=./config/local.yaml
