@@ -4,6 +4,7 @@ import (
 	"log/slog"
 	"os"
 
+	"github.com/evgenmar/sso/internal/app"
 	"github.com/evgenmar/sso/internal/config"
 	"github.com/evgenmar/sso/internal/lib/logger/handlers/slogpretty"
 )
@@ -19,13 +20,11 @@ func main() {
 
 	log := setupLogger(cfg.Env)
 
-	log.Info("starting application",
-		slog.Any("cfg", cfg),
-	)
+	log.Info("starting application", slog.Any("cfg", cfg))
 
-	// TODO init app
+	application := app.New(log, cfg.GRPC.Port, cfg.StoragePath, cfg.TokenTTL)
 
-	// TODO run gRPC server
+	application.GRPCServer.MustRun()
 }
 
 func setupLogger(env string) *slog.Logger {
