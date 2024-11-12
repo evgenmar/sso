@@ -1,0 +1,3 @@
+storage/*.db
+go.sum
+.VSCodeCounter/

@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/evgenmar/sso/internal/app/grpcapp"
+	"github.com/evgenmar/sso/internal/services/auth"
 )
 
 type App struct {
@@ -19,9 +20,9 @@ func New(
 ) *App {
 	//TODO: init storage
 
-	//TODO: init auth service (auth)
+	authService := auth.New(log, storage, storage, storage, tokenTTL)
 
-	grpcApp := grpcapp.New(log, grpcPort)
+	grpcApp := grpcapp.New(log, authService, grpcPort)
 
 	return &App{
 		GRPCServer: grpcApp,
